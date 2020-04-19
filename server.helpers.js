@@ -85,7 +85,7 @@ const checkXML = xml => {
 
         const date = element['$']['scanned-on'];
 
-        if(!checkNum(studentID) || !checkNum(testID) || !firstName || !lastName || !checkNum(markAvailable) || !checkNum(markObtained) || !(date))
+        if(!checkNum(studentID) || !checkNum(testID) || !firstName || !lastName || !checkNum(markAvailable) || !checkNum(markObtained) || markObtained > markAvailable || !(date))
             return -1;
 
         const query = scoreQueryBuilder(studentID,testID,firstName,lastName,summaryMarks, markAvailable, markObtained,date);

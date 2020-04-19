@@ -27,6 +27,7 @@ const db = new sqlite3.Database(DB_PATH,  (err) => {
   console.log('Connected to ' + DB_PATH + ' database.')
 
 });
+db.run(`${createScoresTable}`);
 
 //Middleware
 const app = express();
@@ -34,19 +35,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(xmlparser());
 
+/*
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+*/
 
 app.post('/import',(req,res,next) =>{
+	console.log(req)
 	try{
 		const results = req.body['mcq-test-results']['mcq-test-result'];
 		const queriesList = checkXML(results);
 
 		if(queriesList == -1){
-			const error = new ErrorHandler(400, "Document is missing important bits");
+			console.log("Incorrect Document")
+			const error = new ErrorHandler(400, "Incorrect Document");
 			next(error);	
 		}
 		else{
@@ -54,16 +59,17 @@ app.post('/import',(req,res,next) =>{
 				for(query of queriesList)
 					db.run(query);
 			})
+			console.log("Scores inserted in database")
 			res.status(200).send("Scores inserted in database");
 		}			
 	}
 	catch (err) {
-		next(err)
+		console.error(err.message)
+		next(new ErrorHandler(400,err.message))
 	}
 })
 
 app.get('/results/:testID/aggregate',(req,res,next)=>{
-
   	const testID = req.params.testID
   	const query = getTestID(testID)
   	try{
@@ -86,7 +92,8 @@ app.get('/results/:testID/aggregate',(req,res,next)=>{
 		})  		
   	}	
   	catch(error) {
-  		next(err);
+  		console.error(err.message)
+  		next(new ErrorHandler(500,err.message));
   	}
 });
 
@@ -104,7 +111,6 @@ app.listen(port, (err) => {
     return console.log('something bad happened', err)
   }
   //TRY TO SHUT DOWN THE DB AND SEE WHAT HAPPENS
-  db.run(`${createScoresTable}`);
   console.log(`server is listening on ${port}`)
 
 })
