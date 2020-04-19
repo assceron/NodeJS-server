@@ -27,7 +27,7 @@ const aggregate = rows => {
 		awards[i] = parseFloat(((rows[i].markObtained * 100)/rows[i].markAvailable).toFixed(2));
     }
 
-    console.log(awards);
+    //console.log(awards);
 
     const meanValue = mean(awards);
     toReturn['mean'] = meanValue
@@ -64,7 +64,7 @@ const checkNum = num => {
     return 1;
 }
 
-const checkXML = xml => {
+const buildQueriesList = xml => {
     var queriesList = []
 
     for(i in xml){
@@ -94,4 +94,4 @@ const checkXML = xml => {
     return queriesList;
 }
 
-module.exports = { aggregate, checkXML }
+module.exports = { aggregate, buildQueriesList }

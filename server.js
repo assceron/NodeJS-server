@@ -1,10 +1,12 @@
 const express = require('express');
 const sqlite3 = require("sqlite3").verbose();
 const xmlparser = require("express-xml-bodyparser");
+xmlparser.regexp = /^text\/xml\+markr$/i;
+
 const path = require('path')
 
 const { ErrorHandler, handleError } = require("./error")
-const { aggregate,checkXML } = require("./server.helpers")
+const { aggregate,buildQueriesList } = require("./server.helpers")
 const {
   createScoresTable,
   scoreQueryBuilder,
@@ -35,24 +37,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(xmlparser());
 
-/*
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-*/
 
-app.post('/import',(req,res,next) =>{
-	console.log(req)
+app.post('/import',(req,res,next) =>{	
 	try{
 		const results = req.body['mcq-test-results']['mcq-test-result'];
-		const queriesList = checkXML(results);
+		const queriesList = buildQueriesList(results);
 
 		if(queriesList == -1){
-			console.log("Incorrect Document")
-			const error = new ErrorHandler(400, "Incorrect Document");
-			next(error);	
+			console.log("Incorrect Document");
+			next(new ErrorHandler(400, "Bad Request: Incorrect Document"));	
 		}
 		else{
 			db.serialize(function(){
@@ -64,30 +57,30 @@ app.post('/import',(req,res,next) =>{
 		}			
 	}
 	catch (err) {
-		console.error(err.message)
-		next(new ErrorHandler(400,err.message))
+		console.error(err.message);
+		next(new ErrorHandler(400,"Bad Request: Incorrect Document"));
 	}
-})
+});
 
 app.get('/results/:testID/aggregate',(req,res,next)=>{
-  	const testID = req.params.testID
-  	const query = getTestID(testID)
+  	const testID = req.params.testID;
+  	const query = getTestID(testID);
   	try{
 		db.serialize(function(){
 			db.all(`${query}`, function(err, rows) {
       			if (err){
       				console.error(err);
-      				const error = new ErrorHandler(err)
-      				next(error)
+      				next(new ErrorHandler(400,"Bad Request: " + err));
       			}
 
-      			if(rows.length == 0){
-      				const error = new ErrorHandler(400, "Test ID required available")
-      				next(error)
+      			else if(rows.length == 0){
+      				console.error("Bad Request: Test ID required not available");
+      				next(new ErrorHandler(400, "Bad Request: Test ID required not available"));
       			}
-
-      			toReturn = aggregate(rows)
-      			res.json(toReturn);
+      			else{
+	      			toReturn = aggregate(rows)
+	      			res.json(toReturn);
+	      		}
     		});
 		})  		
   	}	
@@ -98,8 +91,7 @@ app.get('/results/:testID/aggregate',(req,res,next)=>{
 });
 
 app.use((req, res, next) => {
- const error = new ErrorHandler(404,"Not found");
- next(error);
+ next(new ErrorHandler(404,"Not found"));
 });
 
 app.use((err, req, res, next) => {
