@@ -42,15 +42,16 @@ app.post('/import',(req,res,next) =>{
 	try{
 		const results = req.body['mcq-test-results']['mcq-test-result'];
 		const queriesList = buildQueriesList(results);
-
 		if(queriesList == -1){
 			console.log("Incorrect Document");
 			next(new ErrorHandler(400, "Bad Request: Incorrect Document"));	
 		}
 		else{
 			db.serialize(function(){
+				db.exec("BEGIN");
 				for(query of queriesList)
 					db.run(query);
+				db.exec("COMMIT")
 			})
 			console.log("Scores inserted in database")
 			res.status(200).send("Scores inserted in database");
