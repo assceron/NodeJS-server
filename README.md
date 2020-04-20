@@ -86,7 +86,7 @@ Step 1: Clone the repo
 git clone https://github.com/assceron/StileCodingChallenge.git
 ```
 
-Step 2: Build the Docker image
+Step 2: Run docker command
 
 ```bash
 docker-compose up
