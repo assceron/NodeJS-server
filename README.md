@@ -61,9 +61,9 @@ Endpoints available:
 ## Usage
 * HTTP POST 
  Send the HTTP POST request with curl from command line. 
- A database file 'scores.db' is created in the same folder of 'server.js'. 
+  The server first check that the XML format is correct, then add the content to the database.
  ![post-image]
-
+ 
 * HTTP GET
 Send the HTTP GET request with curl from command line.
  ![get-image]
