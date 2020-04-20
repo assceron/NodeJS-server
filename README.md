@@ -10,6 +10,7 @@
   * [Installation](#installation)
 * [Usage](#usage)
 * [Roadmap](#roadmap)
+* [Use Docker](#use-docker)
 * [Contact](#contact)
 
 <!-- ABOUT THE PROJECT -->
@@ -74,6 +75,22 @@ Send the HTTP GET request with curl from command line.
 - `sql.js` - Defines the queries for the database
 - `error.js` - Defines error handling functions
 - `test.js` - Run examples of HTTP POST and GET on the server 
+
+## Use Docker
+
+You can also run this app as a Docker container:
+
+Step 1: Clone the repo
+
+```bash
+git clone https://github.com/assceron/StileCodingChallenge.git
+```
+
+Step 2: Build the Docker image
+
+```bash
+docker-compose up
+```
 
 <!-- CONTACT -->
 ## Contact
