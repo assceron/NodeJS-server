@@ -44,7 +44,7 @@ app.post('/import',(req,res,next) =>{
 		const queriesList = buildQueriesList(results);
 		if(queriesList == -1){
 			console.log("Incorrect Document");
-			next(new ErrorHandler(400, "Bad Request: Incorrect Document"));	
+			next(new ErrorHandler(400, "Bad Request: Incorrect Document\n"));	
 		}
 		else{
 			db.serialize(function(){
@@ -53,13 +53,13 @@ app.post('/import',(req,res,next) =>{
 					db.run(query);
 				db.exec("COMMIT")
 			})
-			console.log("Scores inserted in database")
-			res.status(200).send("Scores inserted in database");
+			console.log("Scores inserted in database\n")
+			res.status(200).send("Scores inserted in database\n");
 		}			
 	}
 	catch (err) {
 		console.error(err.message);
-		next(new ErrorHandler(400,"Bad Request: Incorrect Document"));
+		next(new ErrorHandler(400,"Bad Request: Incorrect Document\n"));
 	}
 });
 
@@ -75,8 +75,8 @@ app.get('/results/:testID/aggregate',(req,res,next)=>{
       			}
 
       			else if(rows.length == 0){
-      				console.error("Bad Request: Test ID required not available");
-      				next(new ErrorHandler(400, "Bad Request: Test ID required not available"));
+      				console.error("Bad Request: Test ID required not available\n");
+      				next(new ErrorHandler(400, "Bad Request: Test ID required not available\n"));
       			}
       			else{
 	      			toReturn = aggregate(rows)
