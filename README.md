@@ -61,15 +61,11 @@ Endpoints available:
 * HTTP POST 
  Send the HTTP POST request with curl from command line. 
  A database file 'scores.db' is created in the same folder of 'server.js'. 
- 
-IMAGE
-
+ ![post-image]
 
 * HTTP GET
 Send the HTTP GET request with curl from command line.
-
-IMAGE
-
+ ![get-image]
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -87,4 +83,5 @@ Assunta Cerone - assceron@gmail.com
 Project Link: [https://github.com/assceron/StileCodingChallenge](https://github.com/assceron/StileCodingChallenge)
 
 <!-- IMAGES -->
-[product-screenshot]: images/screenshot.png
+[post-image]: images/post.png
+[get-image]: images/get.png
