@@ -1,0 +1,31 @@
+{
+  "name": "StileCodingChallenge",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000S\u0000t\u0000i\u0000l\u0000e\u0000C\u0000o\u0000d\u0000i\u0000n\u0000g\u0000C\u0000h\u0000a\u0000l\u0000l\u0000e\u0000n\u0000g\u0000e\u0000\r\u0000 \u0000",
+  "main": "error.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-xml-bodyparser": "^0.3.0",
+    "percentile": "^1.2.3",
+    "sqlite3": "^4.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/assceron/StileCodingChallenge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/assceron/StileCodingChallenge/issues"
+  },
+  "homepage": "https://github.com/assceron/StileCodingChallenge#readme"
+}

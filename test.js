@@ -46,8 +46,8 @@ function test0(){
 
               </mcq-test-results>`;
 
-  const mess = "Running test #0: Missing field\n";
-  postXML(xml)
+  const mess = "Running test #0: Insert with missing field\n" + "Response: ";
+  return postXML(xml)
     .then( response =>{ console.log( mess + response +"\n")})
     .catch(error => {console.error(mess + error +"\n")})
 }
@@ -67,8 +67,8 @@ function test1(){
                   </mcq-test-result>
               </mcq-test-results>`;
 
-    const mess = "Running test #1: Correct XML\n" + "Response: ";
-    postXML(xml)
+    const mess = "Running test #1: Insert a correct XML\n" + "Response: ";
+    return postXML(xml)
     .then( response =>{ console.log(mess + response +"\n")})
     .catch(error => {console.error(mess + error + "\n")})
   
@@ -79,8 +79,8 @@ function test1(){
 */
 function test2(){
   const xml = "";
-  const mess = "Running test #2: Empty XML\n" + "Response: ";
-  postXML(xml)
+  const mess = "Running test #2: Insert an empty XML\n" + "Response: ";
+  return postXML(xml)
     .then( response =>{ console.log( mess + response +"\n")})
     .catch(error => {console.error(mess + error +"\n")})
 }
@@ -101,8 +101,8 @@ function test3(){
                   </mcq-test-result>
               </mcq-test-results>`;
 
-  const mess = "Running test #3: Existent field with higher score\n";
-  postXML(xml)
+  const mess = "Running test #3: Insert an existent field with higher score\n" + "Response: ";
+  return postXML(xml)
     .then( response =>{ console.log( mess + response +"\n")})
     .catch(error => { console.error(mess + error +"\n")})
 }
@@ -111,8 +111,8 @@ function test3(){
   Get aggregate from existent test id
 */
 function test4(){
-  const mess = "Running test #4: Aggregate results\n";
-  getAggregate(1234)
+  const mess = "Running test #4: Aggregate results\n" + "Response: ";
+  return getAggregate(1234)
     .then( response =>{ console.log( mess + response +"\n")})
     .catch(error => {console.error(mess + error +"\n")})
 }
@@ -122,8 +122,8 @@ function test4(){
 */
 
 function test5(){
-  const mess = "Running test #5: Test ID not available\n";
-  getAggregate(0)
+  const mess = "Running test #5: Test ID not available\n" + "Response: ";
+  return getAggregate(0)
     .then( response =>{ console.log( mess + response +"\n")})
     .catch(error => {console.error(mess + error +"\n")})
 }
