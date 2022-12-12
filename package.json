@@ -4,7 +4,7 @@
   "description": "��#\u0000 \u0000S\u0000t\u0000i\u0000l\u0000e\u0000C\u0000o\u0000d\u0000i\u0000n\u0000g\u0000C\u0000h\u0000a\u0000l\u0000l\u0000e\u0000n\u0000g\u0000e\u0000\r\u0000 \u0000",
   "main": "error.js",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-xml-bodyparser": "^0.3.0",
     "percentile": "^1.2.3",
     "sqlite3": "^4.1.1"
